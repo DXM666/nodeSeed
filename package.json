@@ -1,0 +1,8 @@
+{
+    "name": "nodeseed",
+    "version": "1.0.0",
+    "devDependencies": {
+        "fs": "0.0.1-security",
+        "moment": "^2.24.0"
+    }
+}
