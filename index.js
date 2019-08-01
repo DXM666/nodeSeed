@@ -1,5 +1,6 @@
 let fs = require("fs");
 let basepath = "src/modules/";
+let npmPath = "node_modules/test-tool-createmodule/"
 let moment = require("moment");
 let cptName = process.argv.splice(2)[0];
 let path = cptName.split("/");
@@ -13,12 +14,12 @@ let writes = [
   `index.ts`
 ];
 let reads = [
-  `${basepath}tempDemo/components/temp.component.ts`,
-  `${basepath}tempDemo/components/temp.component.html`,
-  `${basepath}tempDemo/components/index.ts`,
-  `${basepath}tempDemo/services/temp.service.ts`,
-  `${basepath}tempDemo/services/index.ts`,
-  `${basepath}tempDemo/index.ts`
+  `${npmPath}${basepath}tempDemo/components/temp.component.ts`,
+  `${npmPath}${basepath}tempDemo/components/temp.component.html`,
+  `${npmPath}${basepath}tempDemo/components/index.ts`,
+  `${npmPath}${basepath}tempDemo/services/temp.service.ts`,
+  `${npmPath}${basepath}tempDemo/services/index.ts`,
+  `${npmPath}${basepath}tempDemo/index.ts`
 ];
 let file = [];
 let author = require("os")
@@ -28,6 +29,7 @@ let author = require("os")
 
 //检测是否存在文件夹
 let exists = function() {
+  console.log(process.argv)
   return new Promise((res, rej) => {
     (async function() {
       for (let a of path) {
@@ -80,7 +82,7 @@ let writeFile = function(file) {
     res("succ");
   });
 };
-async function creatCpt() {
+exports.createModule = async function creatCpt() {
   try {
     await exists();
     //await readFile()
@@ -90,4 +92,3 @@ async function creatCpt() {
     console.error(err);
   }
 }
-creatCpt();

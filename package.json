@@ -1,5 +1,5 @@
 {
-    "name": "nodeseed",
+    "name": "test-tool-createmodule",
     "version": "1.0.0",
     "devDependencies": {
         "fs": "0.0.1-security",
@@ -7,5 +7,6 @@
     },
     "dependencies": {
         "@types/node": "^12.6.8"
-    }
+    },
+    "author": "DXM"
 }
