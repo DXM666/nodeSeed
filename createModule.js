@@ -2,17 +2,10 @@ let fs = require("fs");
 let basepath = "src/modules/";
 let npmPath = "node_modules/test-tool-createmodule/"
 let moment = require("moment");
-let cptName = process.argv.splice(2)[0];
-let path = cptName.split("/");
-let name = path[path.length - 1];
-let writes = [
-  `components/${name}.component.ts`,
-  `components/${name}.component.html`,
-  `components/index.ts`,
-  `services/${name}.service.ts`,
-  `services/index.ts`,
-  `index.ts`
-];
+// let cptName = process.argv.splice(2)[0];
+// let path = cptName.split("/");
+// let name = path[path.length - 1];
+var writes = [];
 let reads = [
   `${npmPath}${basepath}tempDemo/components/temp.component.ts`,
   `${npmPath}${basepath}tempDemo/components/temp.component.html`,
@@ -28,15 +21,14 @@ let author = require("os")
   .pop();
 
 //检测是否存在文件夹
-let exists = function() {
-  console.log(process.argv)
+let exists = function(name) {
   return new Promise((res, rej) => {
     (async function() {
-      for (let a of path) {
-        fs.existsSync(basepath + a)
-          ? (basepath = `${basepath}${a}/`)
-          : await mkdir(a);
-      }
+      // for (let a of path) {
+        fs.existsSync(basepath + name)
+          ? (basepath = `${basepath}${name}/`)
+          : await mkdir(name);
+      // }
       res(basepath);
     })();
   });
@@ -58,7 +50,7 @@ let mkdir = function(a) {
   });
 };
 //读取模板文件内容，并替换为目标组件
-let readFile = function() {
+let readFile = function(name) {
   return new Promise(res => {
     for (let a of reads) {
       let text = fs.readFileSync(a).toString();
@@ -82,12 +74,20 @@ let writeFile = function(file) {
     res("succ");
   });
 };
-exports.createModule = async function creatCpt(module) {
+exports.createModule = async function creatCpt(moduleName) {
   try {
-    await exists();
+    writes = [
+      `components/${moduleName}.component.ts`,
+      `components/${moduleName}.component.html`,
+      `components/index.ts`,
+      `services/${moduleName}.service.ts`,
+      `services/index.ts`,
+      `index.ts`
+    ]
+    await exists(moduleName);
     //await readFile()
-    await writeFile(await readFile());
-    return console.log(`Successfully created ${name} component`);
+    await writeFile(await readFile(moduleName));
+    return console.log(`Successfully created ${moduleName} component`);
   } catch (err) {
     console.error(err);
   }

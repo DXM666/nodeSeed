@@ -9,7 +9,7 @@ const program = require('commander');
   .description('create new component')
   .option('--name [value]', 'Module name')
   .action(moduleName=>{
-      require('./createModule').createModule(moduleName.name)
+      require('./createModule').createModule(moduleName)
   });
 
 program.parse(process.argv);
