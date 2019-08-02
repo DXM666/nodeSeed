@@ -3,11 +3,19 @@
 ## Installation
 `npm install test-tool-createmodule moment`
 ## Basic Usage
-在项目根目录下创建文件引入模块
+在package.json文件下设置执行命令
 ```
-var createModule = require('test-tool-createmodule')
-createModule.createModule()
+ "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "new": "create new"
+  },
 ```
+在命令行执行
+```
+npm run new --name login
+```
+name后面是模块名
+
 项目所需的目录结构
 ```
 --src
